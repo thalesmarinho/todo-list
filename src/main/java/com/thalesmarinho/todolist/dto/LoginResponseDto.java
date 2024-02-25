@@ -1,4 +1,3 @@
 package com.thalesmarinho.todolist.dto;
 
-public record LoginResponseDto(String token) {
-}
+public record LoginResponseDto(String token) {}

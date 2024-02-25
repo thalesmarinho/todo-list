@@ -1,6 +1,6 @@
 package com.thalesmarinho.todolist.service;
 
-import com.thalesmarinho.todolist.dto.RegisterDto;
+import com.thalesmarinho.todolist.dto.UserDto;
 import com.thalesmarinho.todolist.model.User;
 import com.thalesmarinho.todolist.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User registerUser(RegisterDto data) {
+    public User registerUser(UserDto data) {
         User user = new User();
 
         user.setUsername(data.getUsername().toLowerCase());

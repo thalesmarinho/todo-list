@@ -1,29 +1,23 @@
-package com.thalesmarinho.todolist.model;
+package com.thalesmarinho.todolist.dto;
 
-import jakarta.persistence.*;
+import com.thalesmarinho.todolist.model.RecurrenceType;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-public class Task implements Serializable {
+@Builder
+public class TaskDto {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    private final long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ToString.Exclude
-    @ManyToOne(targetEntity = User.class)
-    private User user;
+    private UserDto user;
 
     @NotBlank
     private String title;
@@ -42,5 +36,5 @@ public class Task implements Serializable {
     private RecurrenceType recurrenceType;
 
     private LocalDateTime endDate;
-    private boolean completed;
+
 }

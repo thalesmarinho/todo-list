@@ -1,9 +1,11 @@
 package com.thalesmarinho.todolist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,12 +30,15 @@ public class User implements UserDetails, Serializable {
     @NotBlank
     @Column(unique = true, nullable = false)
     private String username;
+
+    @JsonIgnore
     @NotBlank
     @Column(name = "password_hash", nullable = false)
     private String password;
 
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
 
@@ -41,6 +46,7 @@ public class User implements UserDetails, Serializable {
     @Column(length = 254, unique = true)
     private String email;
 
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
 

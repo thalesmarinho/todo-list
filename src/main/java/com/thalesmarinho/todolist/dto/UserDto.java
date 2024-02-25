@@ -1,5 +1,6 @@
 package com.thalesmarinho.todolist.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.thalesmarinho.todolist.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RegisterDto {
+public class UserDto {
 
     private Long id;
 
@@ -18,6 +19,7 @@ public class RegisterDto {
     @Size(min = 1, max = 50)
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank
     @Size(min = 8, max = 128)
     private String password;
@@ -33,4 +35,5 @@ public class RegisterDto {
 
     @NotNull
     private Role role;
+
 }

@@ -2,9 +2,8 @@ package com.thalesmarinho.todolist.controller;
 
 import com.thalesmarinho.todolist.dto.LoginDto;
 import com.thalesmarinho.todolist.dto.LoginResponseDto;
-import com.thalesmarinho.todolist.dto.RegisterDto;
+import com.thalesmarinho.todolist.dto.UserDto;
 import com.thalesmarinho.todolist.exception.EmailAlreadyUsedException;
-import com.thalesmarinho.todolist.exception.IdMustBeNullException;
 import com.thalesmarinho.todolist.exception.UsernameAlreadyUsedException;
 import com.thalesmarinho.todolist.model.User;
 import com.thalesmarinho.todolist.repository.UserRepository;
@@ -44,20 +43,17 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(@Valid @RequestBody RegisterDto registerDto) {
-        if(registerDto.getId() != null)
-            throw new IdMustBeNullException();
-
-        String username = registerDto.getUsername().toLowerCase();
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserDto data) {
+        String username = data.getUsername().toLowerCase();
         userRepository.findByUsername(username).ifPresent(existingUser -> {
             throw new UsernameAlreadyUsedException();
         });
 
-        String email = registerDto.getEmail().toLowerCase();
+        String email = data.getEmail().toLowerCase();
         userRepository.findByEmailIgnoreCase(email).ifPresent(existingUser -> {
             throw new EmailAlreadyUsedException();
         });
 
-        return new ResponseEntity<>(userService.registerUser(registerDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.registerUser(data), HttpStatus.CREATED);
     }
 }
