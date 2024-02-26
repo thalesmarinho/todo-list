@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/users/login").permitAll()
+                        .requestMatchers("/api/users/verify").permitAll()
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
                         .requestMatchers("/api/tasks/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()

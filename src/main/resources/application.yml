@@ -8,8 +8,23 @@ spring:
       ddl-auto: update
   jackson:
     spring.jackson.serialization.write_dates_as_timestamps: false
+  mail:
+    host: mailHost
+    port: mailPort
+    username: mailUsername
+    password: mailPassword
+
+    properties:
+      mail:
+         smtp:
+           auth: true
+           starttls:
+            enable: true
 
 api:
+  mail:
+    sender: Todo-List
+    from: fromEmail
   security:
     token:
       secret: ${JWT_SECRET:my-secret-key}
